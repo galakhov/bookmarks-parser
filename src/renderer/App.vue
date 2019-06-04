@@ -6,8 +6,8 @@
 
 <script>
   export default {
-    name: 'bookmarks-parser'
-  }
+    name: 'bookmarks-parser',
+  };
 </script>
 
 <style>
