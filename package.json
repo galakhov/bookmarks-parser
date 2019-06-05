@@ -59,12 +59,15 @@
     }
   },
   "dependencies": {
-    "vue": "^2.5.16",
     "axios": "^0.18.0",
+    "vue": "^2.5.16",
+    "vue-cli-plugin-vuetify-electron": "0.0.7",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
+    "vuetify": "^1.5.14",
     "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0"
+    "vuex-electron": "^1.0.0",
+    "font-awesome": "^4.7.0"
   },
   "devDependencies": {
     "ajv": "^6.5.0",
@@ -114,11 +117,14 @@
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "url-loader": "^1.0.1",
     "vue-html-loader": "^1.2.4",
     "vue-loader": "^15.2.4",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16",
+    "vuetify-loader": "^1.2.2",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4",

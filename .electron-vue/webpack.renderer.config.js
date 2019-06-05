@@ -12,6 +12,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 /**
  * List of node_modules to include in webpack bundle
  *
@@ -86,6 +87,15 @@ let rendererConfig = {
         }
       },
       {
+        test: /\.styl$/,
+        loader: ['vue-style-loader', 'style-loader', 'css-loader', 'stylus-loader', {
+          loader: 'vuetify-loader',
+          options: {
+            theme: path.resolve('./node_modules/vuetify/src/stylus/theme.styl')
+          }
+        }]
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
           loader: 'url-loader',
@@ -135,7 +145,8 @@ let rendererConfig = {
         : false
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new VuetifyLoaderPlugin()
   ],
   output: {
     filename: '[name].js',

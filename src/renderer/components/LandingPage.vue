@@ -1,30 +1,58 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
     <main>
-      <div class="left-side">
-        <span class="title">
-          Welcome to your new project!
-        </span>
-        <system-information></system-information>
-      </div>
+      <v-app id="inspire">
+        <v-toolbar
+          color="cyan"
+          dark
+          tabs
+        >
+          <v-toolbar-side-icon></v-toolbar-side-icon>
 
-      <div class="right-side">
-        <div class="doc">
-          <div class="title">Getting Started</div>
-          <p>
-            electron-vue comes packed with detailed documentation that covers everything from
-            internal configurations, using the project structure, building your application,
-            and so much more.
-          </p>
-          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
-        </div>
-        <div class="doc">
-          <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
-        </div>
-      </div>
+          <v-toolbar-title>Page title</v-toolbar-title>
+
+          <v-spacer></v-spacer>
+
+          <v-btn icon>
+            <v-icon>search</v-icon>
+          </v-btn>
+
+          <v-btn icon>
+            <v-icon>more_vert</v-icon>
+          </v-btn>
+
+          <template v-slot:extension>
+            <v-tabs
+              v-model="tab"
+              color="cyan"
+              grow
+            >
+              <v-tabs-slider color="yellow"></v-tabs-slider>
+
+              <v-tab
+                v-for="item in items"
+                :key="item"
+              >
+                {{ item }}
+              </v-tab>
+            </v-tabs>
+          </template>
+        </v-toolbar>
+
+        <v-tabs-items v-model="tab">
+          <v-tab-item
+            v-for="item in items"
+            :key="item"
+          >
+            <v-card flat>
+              <v-card-text>
+                {{ text }}
+                <system-information></system-information>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+        </v-tabs-items>
+      </v-app>
     </main>
   </div>
 </template>
@@ -40,10 +68,19 @@
         this.$electron.shell.openExternal(link);
       },
     },
+    data() {
+      return {
+        tab: null,
+        items: [
+          'web', 'shopping', 'videos', 'images', 'news',
+        ],
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      };
+    },
   };
 </script>
 
-<style>
+<style lang="scss">
   @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
   * {
@@ -62,14 +99,8 @@
         rgba(229, 229, 229, .9) 100%
       );
     height: 100vh;
-    padding: 60px 80px;
+    padding: 0;
     width: 100vw;
-  }
-
-  #logo {
-    height: auto;
-    margin-bottom: 20px;
-    width: 420px;
   }
 
   main {
@@ -77,52 +108,6 @@
     justify-content: space-between;
   }
 
-  main > div { flex-basis: 50%; }
+  main > div { flex-basis: 100%; }
 
-  .left-side {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .welcome {
-    color: #555;
-    font-size: 23px;
-    margin-bottom: 10px;
-  }
-
-  .title {
-    color: #2c3e50;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-
-  .title.alt {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .doc p {
-    color: black;
-    margin-bottom: 10px;
-  }
-
-  .doc button {
-    font-size: .8em;
-    cursor: pointer;
-    outline: none;
-    padding: 0.75em 2em;
-    border-radius: 2em;
-    display: inline-block;
-    color: #fff;
-    background-color: #4fc08d;
-    transition: all 0.15s ease;
-    box-sizing: border-box;
-    border: 1px solid #4fc08d;
-  }
-
-  .doc button.alt {
-    color: #42b983;
-    background-color: transparent;
-  }
 </style>
