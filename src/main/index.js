@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from 'electron' // eslint-disable-line
+import { app, BrowserWindow, dialog } from 'electron' // eslint-disable-line
+const fs = require('fs');
 
 /**
  * Set `__static` path to static files in production
@@ -8,22 +9,61 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\') // eslint-disable-line
 }
 
-let mainWindow;
+let mainWindow = null;
 const winURL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:9080'
   : `file://${__dirname}/index.html`;
+
+// export
+const getFilesInFolders = () => {
+  const files = dialog.showOpenDialog({
+    properties: ['openFile', 'multiSelections'],
+    buttonLabel: 'Select bookmarks',
+    title: 'Selecting bookmarks',
+    filters: [
+      { name: 'HTML Files', extensions: ['html', 'htm'] },
+      // { name: 'Archive Files', extensions: ['zip', 'rar'] },
+    ],
+  });
+
+  if (!files) return;
+
+  const file = files[0];
+
+  const content = fs.readFileSync(file).toString();
+
+  console.log(content);
+};
 
 function createWindow() {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
+    width: 1280,
+    height: 800,
     useContentSize: true,
-    width: 1000,
+    titleBarStyle: 'hiddenInset',
+    show: false,
+    frame: false,
+    fullscreenable: false,
+    webPreferences: {
+      backgroundThrottling: false,
+    },
   });
 
   mainWindow.loadURL(winURL);
+
+  getFilesInFolders();
+
+  mainWindow.setVisibleOnAllWorkspaces(true); // put the window on all screens
+  mainWindow.focus(); // focus the window up front on the active screen
+  mainWindow.setVisibleOnAllWorkspaces(false); // disable all screen behavior
+
+  // to avoid a blank flashing page on start
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;

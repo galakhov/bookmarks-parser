@@ -3,31 +3,31 @@
     <main>
       <v-app id="inspire">
         <v-toolbar
-          color="cyan"
+          color="orange"
           dark
           tabs
         >
           <v-toolbar-side-icon></v-toolbar-side-icon>
 
-          <v-toolbar-title>Page title</v-toolbar-title>
+          <v-toolbar-title>Bookmarks parser</v-toolbar-title>
 
           <v-spacer></v-spacer>
 
           <v-btn icon>
-            <v-icon>search</v-icon>
+            <v-icon>fa fa-search</v-icon>
           </v-btn>
 
           <v-btn icon>
-            <v-icon>more_vert</v-icon>
+            <v-icon>fa fa-ellipsis-h</v-icon>
           </v-btn>
 
           <template v-slot:extension>
             <v-tabs
               v-model="tab"
-              color="cyan"
+              color="orange"
               grow
             >
-              <v-tabs-slider color="yellow"></v-tabs-slider>
+              <v-tabs-slider color="black"></v-tabs-slider>
 
               <v-tab
                 v-for="item in items"
@@ -87,9 +87,21 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    ::-webkit-scrollbar { display: none; }
   }
 
-  body { font-family: 'Source Sans Pro', sans-serif; }
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  main {
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
+      flex-basis: 100%;
+    }
+  }
 
   #wrapper {
     background:
@@ -103,11 +115,10 @@
     width: 100vw;
   }
 
-  main {
-    display: flex;
-    justify-content: space-between;
+  #inspire {
+    nav {
+      padding-top: 10px;
+    }
   }
-
-  main > div { flex-basis: 100%; }
 
 </style>
